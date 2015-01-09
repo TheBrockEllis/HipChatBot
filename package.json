@@ -1,0 +1,20 @@
+{
+  "name": "HipChatSycamore",
+  "version": "1.0.0",
+  "description": "A hipchat bot written for Sycamore Education",
+  "main": "app.js",
+  "dependencies": {
+    "wobot": "^0.8.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "hipchat",
+    "bot",
+    "chatops"
+  ],
+  "author": "TheBrockEllis",
+  "license": "ISC"
+}

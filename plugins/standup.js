@@ -12,13 +12,13 @@ module.exports.load = function(bot){
   //when connecting, get roster
   var team;
   bot.onConnect(function(){
-    console.log("Bot connected");
+    //console.log("Bot connected");
     
     bot.getRoster(function(err, roster, stanza){
       //console.log(err);
       //console.log(roster);
       //console.log(stanza);
-      console.log("Loaded roster. Total of " + roster.length + " employees");
+      //console.log("Loaded roster. Total of " + roster.length + " employees");
       team = roster
     });
   
@@ -27,35 +27,33 @@ module.exports.load = function(bot){
 
   //when being spoken to, write it to file
   bot.onPrivateMessage(function(from, message){
-    console.log("Someone is talking to me!");
-    console.log(from);
-    console.log(message);
-   
-    var update = { 
-      "name": "Brock Ellis",
-      "status": "Doing work."
+    
+    for(var i=0; i < team.length; i++){
+      //console.log("looping");
+      if(team[i].jid == from){
+        //console.log("Found it!");
+        var author = team[i].name;
+        break;
+      }
     }
 
-    //console.log(update);
+    var update = { 
+      "name": author,
+      "status": message
+    }
 
     fs.readFile("./plugins/standup.json", 'utf8', function(error, data){
       if(error) throw error;
    
-      //console.log("data!" + data);
-      //console.log(typeof data);
-      //if(typeof data !== "object") data = [];
-
       var standup = JSON.parse(data); 
-
-      console.log("parsed json: " + standup);      
+      //console.log("parsed json: " + standup);      
 
       standup[from] = update;
-
-      console.log(standup);
+      //console.log(standup);
 
       fs.writeFile("./plugins/standup.json", JSON.stringify(standup, null, 2), function(error) {
         if (error) throw error;
-        console.log('complete');
+        //console.log('complete');
       });
       
     }); //end read/write

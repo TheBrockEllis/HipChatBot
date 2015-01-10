@@ -1,4 +1,5 @@
 config.js
+plugins/standup.json
 
 # Logs
 logs
